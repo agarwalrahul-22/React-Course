@@ -5,19 +5,26 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
     function RenderDish({dish}){
         
         if(dish !=null){
             return(
             <div className="col-12 col-md-5 m-1">
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
             <Card>
-               <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-               <CardBody>
-               <CardTitle>{dish.name}</CardTitle>
-               <CardText>{dish.description}</CardText>
-               </CardBody>
+                <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                <CardBody>
+                    <CardTitle>{dish.name}</CardTitle>
+                    <CardText>{dish.description}</CardText>
+                </CardBody>
             </Card>
+            </FadeTransform>
             </div>
             );
         }
@@ -28,36 +35,35 @@ import { baseUrl } from '../shared/baseUrl';
         }
     }     
 
-    function RenderComments({comments, addComment, dishId}) {
+    function RenderComments({comments, postComment, dishId}) {
         if(comments==null){
             return(
                <div></div>
             );
         }
-       const com=comments.map(comment => {
-          return(
-              <li key={comment.id}>
-                <br/>
-               {comment.comment}
-                <br/> <br/>
-                --{comment.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} <br/>
-              </li>
-
-          );
-       });
+            const com =comments.map((comment) => {
+                return (
+                    <Fade in>
+                    <li key={comment.id}>
+                    <p>{comment.comment}</p>
+                    <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+                    </li>
+                    </Fade>
+                );
+            })
         return(
               <div className="col-12 col-md-5 m-1">
                 <h4>Comments</h4>
                 <ul className="list-unstyled">
+                    <Stagger in>
                     {com}
+                    </Stagger>
                 </ul>
-                <CommentForm dishId={dishId} addComment={addComment} />
-                {/* <Button outline color="secondary"><span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>{' '} */}
+                <CommentForm dishId={dishId} postComment={postComment} />
               </div>
         )
         }
       const DishDetail = (props)=>{
-           const dish=props.dish
            if (props.isLoading) {
             return(
                 <div className="container">
@@ -96,7 +102,7 @@ import { baseUrl } from '../shared/baseUrl';
                 <div className="row">
                     <RenderDish dish={props.dish} />
                     <RenderComments comments={props.comments}
-                     addComment={props.addComment}
+                     postComment={props.postComment}
                      dishId={props.dish.id}
                     />
                 </div>
@@ -130,7 +136,7 @@ import { baseUrl } from '../shared/baseUrl';
   
       handleSubmit(values) {
           this.toggleModal();
-          this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+          this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
 
         //   console.log('Current State is: ' + JSON.stringify(values));
         //  alert('Current State is: ' + JSON.stringify(values));
