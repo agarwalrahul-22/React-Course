@@ -5,7 +5,7 @@ import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform } from 'react-animation-components';
 
 function RenderCard(item,isLoading, errMess ) {
-    // console.log(item);
+    console.log(item);
     if (isLoading) {
         return <Loading />;
     }
@@ -34,7 +34,7 @@ function Home(props) {
         <div className="container">
                     <div className="row align-items-start">
                         <div className="col-12 col-md m-1">
-                            <RenderCard item={props.dish} isLoading={props.dishesLoading} errMess={props.dishesErrMess} />
+                            <RenderCard item={props.dishes} isLoading={props.dishesLoading} errMess={props.dishesErrMess} />
                         </div>
                         <div className="col-12 col-md m-1">
                             <RenderCard item={props.promotion} isLoading={props.promosLoading} errMess={props.promosErrMess} />

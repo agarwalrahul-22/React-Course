@@ -30,7 +30,7 @@ const Menu = (props) => {
     if (props.dishes.isLoading) {
         return(
             <div className="container">
-                <div className="row">
+                <div className="row">            
                     <Loading />
                 </div>
             </div>
