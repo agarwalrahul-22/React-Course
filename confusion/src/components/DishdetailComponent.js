@@ -158,20 +158,20 @@ import { FadeTransform, Fade, Stagger } from 'react-animation-components';
                                       <Row className="form-group">
                                           <Label htmlFor="rating">Rating</Label>
                                           <Col md={10}>
-                                              <Control.select model=".rating" name="rating" className="form-control" >
+                                              <Control.Select model=".rating" name="rating" className="form-control" >
                                                   <option>1</option>
                                                   <option>2</option>
                                                   <option>3</option>
                                                   <option>4</option>
                                                   <option>5</option>
-                                              </Control.select>
+                                              </Control.Select>
                                           </Col>
                                       </Row>
   
                                       <Row className="form-group">
                                           <Label htmlFor="author" md={2}>Your name</Label>
                                           <Col md={10}>
-                                              <Control.text model=".author" id="author" name="author" placeholder="Author" className="form-control" validators={{ required, minLength: minLength(3), maxLength: maxLength(15) }} />
+                                              <Control.Text model=".author" id="author" name="author" placeholder="Author" className="form-control" validators={{ required, minLength: minLength(3), maxLength: maxLength(15) }} />
                                               <Errors className="text-danger" model=".author" show="touched" messages={{ required: 'Required', minLength: 'Must be greater than 3 characters', maxLength: 'Must be 15 charaters or less' }} />
                                           </Col>
                                       </Row>
@@ -179,7 +179,7 @@ import { FadeTransform, Fade, Stagger } from 'react-animation-components';
                                       <Row className="form-group">
                                           <Label htmlFor="feedback" md={2}>Your feedback</Label>
                                           <Col md={10}>
-                                              <Control.textarea model=".comment" id="comment" name="comment" rows="6" className="form-control" validators={{ required }} />
+                                              <Control.Textarea model=".comment" id="comment" name="comment" rows="6" className="form-control" validators={{ required }} />
                                               <Errors className="text-danger" model=".comment" show="touched" messages={{ required: 'Required' }} />
                                           </Col>
                                       </Row>
